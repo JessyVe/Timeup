@@ -2,6 +2,7 @@ package com.fh.android.timeup
 
 import com.fh.android.timeup.beans.Project
 import com.fh.android.timeup.beans.TimeMeasurement
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import java.time.LocalDateTime
@@ -17,30 +18,10 @@ class ProjectTests {
     @Before
     fun setUp() {
         val measurementList = mutableListOf<TimeMeasurement>(
-            TimeMeasurement(LocalDateTime.of(2020,1,1,13,30,0), LocalDateTime.of(2020,1,1,13,30,0)),
-            TimeMeasurement(LocalDateTime.of(2020,1,1,13,30,0), LocalDateTime.of(2020,1,1,13,30,0))
+            TimeMeasurement(LocalDateTime.of(2020,1,1,13,30,0), LocalDateTime.of(2020,1,1,15,0,0)),
+            TimeMeasurement(LocalDateTime.of(2020,1,2,8,0,0), LocalDateTime.of(2020,1,2,9,0,0))
         )
         project = Project("My Test Project", ArrayList(measurementList), 500, false)
-    }
-
-    @Test
-    fun setProjectTitleTest() {
-        // arrange
-
-        // act
-
-        // assert
-
-    }
-
-    @Test
-    fun setProjectStatusTest(){
-        // arrange
-
-        // act
-
-        // assert
-
     }
 
     @Test
@@ -65,12 +46,11 @@ class ProjectTests {
 
     @Test
     fun getTotalTimeSpendHourFormatTest(){
-        // arrange
-
         // act
+        var totalTimeSpendHourFormatString = project?.getTotalTimeSpendHourFormat()
 
         // assert
-
+        assertEquals("2.5 h", totalTimeSpendHourFormatString)
     }
 
     @Test
@@ -85,6 +65,16 @@ class ProjectTests {
 
     @Test
     fun getLastUpdateDateTest(){
+        // arrange
+
+        // act
+
+        // assert
+
+    }
+
+    @Test
+    fun getLastUpdateString(){
         // arrange
 
         // act

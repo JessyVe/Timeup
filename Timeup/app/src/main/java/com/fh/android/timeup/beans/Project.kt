@@ -31,8 +31,8 @@ data class Project(var title:String,
      * Returns the absolute duration spend as a formatted string in hours.
      */
     fun getTotalTimeSpendHourFormat() : String{
-        var hourValue = BigDecimal(getTotalTimeSpend()/360).setScale(1, RoundingMode.HALF_EVEN)
-        return "$hourValue h"
+        var hourValue = getTotalTimeSpend()/3600.0
+        return String.format("%.1f h", hourValue)
     }
 
     /**
