@@ -1,4 +1,4 @@
-package com.fh.android.timeup.pojo
+package com.fh.android.timeup.beans
 
 import java.time.Duration
 import java.time.LocalDate

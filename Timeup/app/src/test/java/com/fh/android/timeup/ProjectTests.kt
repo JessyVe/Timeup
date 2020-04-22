@@ -1,7 +1,7 @@
 package com.fh.android.timeup
 
-import com.fh.android.timeup.pojo.Project
-import com.fh.android.timeup.pojo.TimeMeasurement
+import com.fh.android.timeup.beans.Project
+import com.fh.android.timeup.beans.TimeMeasurement
 import org.junit.Before
 import org.junit.Test
 import java.time.LocalDateTime
@@ -20,7 +20,7 @@ class ProjectTests {
             TimeMeasurement(LocalDateTime.of(2020,1,1,13,30,0), LocalDateTime.of(2020,1,1,13,30,0)),
             TimeMeasurement(LocalDateTime.of(2020,1,1,13,30,0), LocalDateTime.of(2020,1,1,13,30,0))
         )
-        project = Project("My Test Project", ArrayList(measurementList), false)
+        project = Project("My Test Project", ArrayList(measurementList), 500, false)
     }
 
     @Test

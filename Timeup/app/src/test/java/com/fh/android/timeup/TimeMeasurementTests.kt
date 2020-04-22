@@ -1,6 +1,6 @@
 package com.fh.android.timeup
 
-import com.fh.android.timeup.pojo.TimeMeasurement
+import com.fh.android.timeup.beans.TimeMeasurement
 import org.junit.Test
 
 import org.junit.Assert.*
