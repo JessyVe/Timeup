@@ -1,7 +1,9 @@
 package com.fh.android.timeup.beans
 
+import com.fh.android.timeup.enums.UpdateStrings
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -12,7 +14,7 @@ data class Project(var title:String,
                    var estimatedHours:Int,
                    var isClosed:Boolean)
 {
-    val formatter : DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE
+    val dec = DecimalFormat("##.#")
     /**
      * Adds a new TimeMeasurement to the list of measurements.
      */
@@ -32,7 +34,7 @@ data class Project(var title:String,
      */
     fun getTotalTimeSpendHourFormat() : String{
         var hourValue = getTotalTimeSpend()/3600.0
-        return String.format("%.1f h", hourValue)
+        return dec.format(hourValue)+" h"
     }
 
     /**
@@ -53,25 +55,29 @@ data class Project(var title:String,
      * Returns the last update string.
      */
     fun getLastUpdateString() : String {
-        var duration = Duration.between(getLastUpdateDate(), LocalDateTime.now()).abs().toMinutes()
+        var duration = Duration.between(getLastUpdateTimestamp(), LocalDateTime.now()).abs().toMinutes()
 
         when {
             duration < 10 -> {
-                return "Just now"
-            }
-            duration < 60 -> {
-                return "This hour"
+                return UpdateStrings.JUST_NOW.description
             }
             duration < 60*24 -> {
-                return "Today"
+                return UpdateStrings.TODAY.description
             }
             duration < 60*24*7 -> {
-                return "This week"
+                return UpdateStrings.THIS_WEEK.description
             }
             duration < 60*24*30 -> {
-                return "This month"
+                return UpdateStrings.THIS_MONTH.description
             }
         }
         return getLastUpdateDate()?.format(DateTimeFormatter.ISO_LOCAL_DATE) ?: "Unknown"
+    }
+
+    /**
+     * Returns the last end-timestamp an entry was made.
+     */
+    private fun getLastUpdateTimestamp() : LocalDateTime? {
+        return timeMeasurements.map{measurement -> measurement.endDate }.max()
     }
 }

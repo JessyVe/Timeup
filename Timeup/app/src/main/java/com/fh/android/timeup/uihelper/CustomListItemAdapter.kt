@@ -23,9 +23,9 @@ class CustomListItemAdapter(private val context : Context,
 
         val rowView = inflater.inflate(R.layout.openprojectrow, parent, false)
         rowView.findViewById<TextView>(R.id.tvProjectTitle).text = project.title
-        //rowView.findViewById<TextView>(R.id.tvLastUpdate).text = project.getLastUpdateString()
-        //rowView.findViewById<TextView>(R.id.tvEstimatedTime).text = "$project.estimatedHours"
-        //rowView.findViewById<TextView>(R.id.tvWorkedTime).text = project.getTotalTimeSpendHourFormat()
+        rowView.findViewById<TextView>(R.id.tvLastUpdate).text = project.getLastUpdateString()
+        rowView.findViewById<TextView>(R.id.tvEstimatedTime).text = String.format("Estimated %d h", project.estimatedHours)
+        rowView.findViewById<TextView>(R.id.tvWorkedTime).text = project.getTotalTimeSpendHourFormat()
 
         rowView.tag = position
         return rowView
