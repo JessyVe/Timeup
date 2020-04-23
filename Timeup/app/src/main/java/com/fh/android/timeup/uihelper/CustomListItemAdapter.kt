@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import android.widget.Toast
 import com.fh.android.timeup.R
 import com.fh.android.timeup.beans.Project
 
@@ -22,12 +23,20 @@ class CustomListItemAdapter(private val context : Context,
         var project = projectList[position]
 
         val rowView = inflater.inflate(R.layout.openprojectrow, parent, false)
+
         rowView.findViewById<TextView>(R.id.tvProjectTitle).text = project.title
         rowView.findViewById<TextView>(R.id.tvLastUpdate).text = project.getLastUpdateString()
         rowView.findViewById<TextView>(R.id.tvEstimatedTime).text = String.format("Estimated %d h", project.estimatedHours)
         rowView.findViewById<TextView>(R.id.tvWorkedTime).text = project.getTotalTimeSpendHourFormat()
 
-        rowView.tag = position
+        rowView.tag = project
+        rowView.setOnClickListener({v -> onProjectSelected(v)})
+
         return rowView
+    }
+
+    private fun onProjectSelected(v : View){
+        var project = v.tag as Project
+        Toast.makeText(context, "Clicked on " + project.title, Toast.LENGTH_SHORT).show()
     }
 }
