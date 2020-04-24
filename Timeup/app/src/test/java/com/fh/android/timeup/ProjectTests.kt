@@ -17,7 +17,7 @@ class ProjectTests {
 
     var project :  Project? = null
     val measurementList = mutableListOf<TimeMeasurement>()
-    
+
     @Before
     fun setUp() {
         measurementList.addAll(mutableListOf<TimeMeasurement>(

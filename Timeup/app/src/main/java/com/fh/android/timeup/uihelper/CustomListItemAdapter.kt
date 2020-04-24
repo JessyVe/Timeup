@@ -30,7 +30,7 @@ class CustomListItemAdapter(private val context : Context,
         rowView.findViewById<TextView>(R.id.tvWorkedTime).text = project.getTotalTimeSpendHourFormat()
 
         rowView.tag = project
-        rowView.setOnClickListener({v -> onProjectSelected(v)})
+        rowView.setOnClickListener(this::onProjectSelected)
 
         return rowView
     }

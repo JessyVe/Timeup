@@ -26,10 +26,11 @@
         android:layout_width="350dp"
         android:layout_height="33dp"
         android:background="#1C1C1C"
+        android:backgroundTintMode="screen"
         android:fontFamily="sans-serif-light"
         android:text="Add project +"
         android:textAllCaps="false"
-        android:textColor="#AFACAC"/>
+        android:textColor="#AFACAC" />
 
     <ListView
         android:id="@+id/lvProjects"
