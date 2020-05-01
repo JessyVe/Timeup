@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "640048310131",
+    "firebase_url": "https://timeup-b7f6a.firebaseio.com",
+    "project_id": "timeup-b7f6a",
+    "storage_bucket": "timeup-b7f6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640048310131:android:86986f7e6e462d44358706",
+        "android_client_info": {
+          "package_name": "com.fh.android.timeup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640048310131-p1067dnneeffu67giqf5uvocc70i3n34.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fh.android.timeup",
+            "certificate_hash": "31a54e03c826249077e4a8a326aa7b1f39b54574"
+          }
+        },
+        {
+          "client_id": "640048310131-4pa5cp4oi4m373h91b4mh2lkee9tg4l6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJmoZH0wojILaYKpm2cCIB9q5tt6Sw3hc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640048310131-4pa5cp4oi4m373h91b4mh2lkee9tg4l6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

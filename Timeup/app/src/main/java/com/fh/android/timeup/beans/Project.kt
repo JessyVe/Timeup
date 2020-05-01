@@ -1,20 +1,21 @@
 package com.fh.android.timeup.beans
 
 import com.fh.android.timeup.enums.UpdateStrings
-import java.math.BigDecimal
-import java.math.RoundingMode
+import com.fh.android.timeup.services.HashingEngine
 import java.text.DecimalFormat
-import java.time.Duration
-import java.time.LocalDate
-import java.time.LocalDateTime
+import java.time.*
 import java.time.format.DateTimeFormatter
 
-data class Project(var title:String,
-                   var timeMeasurements:ArrayList<TimeMeasurement>,
-                   var estimatedHours:Int,
-                   var isClosed:Boolean)
-{
-    val dec = DecimalFormat("##.#")
+data class Project (val title:String,
+                    val timeMeasurements:ArrayList<TimeMeasurement>,
+                    val estimatedHours:Int,
+                    val isClosed:Boolean,
+                    var projectHash:String = "") : IHashable {
+
+    init {
+        HashingEngine.setHashOfObject(this)
+    }
+
     /**
      * Adds a new TimeMeasurement to the list of measurements.
      */
@@ -33,8 +34,10 @@ data class Project(var title:String,
      * Returns the absolute duration spend as a formatted string in hours.
      */
     fun getTotalTimeSpendHourFormat() : String{
+        val dec = DecimalFormat("##.#")
         var hourValue = getTotalTimeSpend()/3600.0
-        return dec.format(hourValue)+" h"
+
+        return dec.format(hourValue) + " h"
     }
 
     /**
@@ -78,6 +81,19 @@ data class Project(var title:String,
      * Returns the last end-timestamp an entry was made.
      */
     private fun getLastUpdateTimestamp() : LocalDateTime? {
-        return timeMeasurements.map{measurement -> measurement.endDate }.max()
+        return timeMeasurements.map{measurement -> measurement.beginDate }.max()
+    }
+
+    override fun getHashingString(): String {
+       return String.format("%s%s", title, LocalDateTime.now().toString())
+    }
+
+    override fun setHash(projectHash: String) {
+        if(projectHash.isNullOrEmpty())
+            this.projectHash = projectHash
+    }
+
+    override fun getHash() : String {
+        return projectHash
     }
 }
