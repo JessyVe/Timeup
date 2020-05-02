@@ -26,4 +26,12 @@ object FirebaseAccess : IDatabaseAccess {
              println("Update failed $it")
          }
      }
+
+    fun addData(pathString: String, obj : Any){
+        database.child(pathString).setValue(obj).addOnSuccessListener {
+            println("Updated successfully")
+        }.addOnFailureListener {
+            println("Update failed $it")
+        }
+    }
  }

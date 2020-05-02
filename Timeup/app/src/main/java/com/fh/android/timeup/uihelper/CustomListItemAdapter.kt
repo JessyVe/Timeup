@@ -4,35 +4,62 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
 import android.widget.TextView
 import android.widget.Toast
 import com.fh.android.timeup.R
 import com.fh.android.timeup.beans.Project
+import com.fh.android.timeup.dtos.ProjectDTO
 
-class CustomListItemAdapter(private val context : Context,
-                            private val projectList : ArrayList<Project>) : BaseAdapter() {
+class CustomListItemAdapter(context : Context,
+                            resource :Int,
+                            projectList : ArrayList<ProjectDTO>)
+    : ArrayAdapter<ProjectDTO>(context, resource, projectList) {
 
-    private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private var mResource : Int = 0
+    private var mList : ArrayList<ProjectDTO>
 
-    override fun getCount(): Int { return projectList.size }
-    override fun getItem(position: Int): Int { return position }
-    override fun getItemId(position: Int): Long { return position.toLong() }
+    private val mLayoutInflater: LayoutInflater
+    private var mContext : Context = context
+
+    init{
+        this.mResource = resource
+        this.mList = projectList
+        this.mLayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    }
+
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var project = projectList[position]
+       val returnView: View?
 
-        val rowView = inflater.inflate(R.layout.openprojectrow, parent, false)
+        if(convertView == null){
+            returnView = try {
+                mLayoutInflater.inflate(mResource, null)
+            } catch (ex :Exception){
+                ex.printStackTrace()
+                View(context)
+            }
+            setUI(returnView, position)
+            return returnView
+        }
 
-        rowView.findViewById<TextView>(R.id.tvProjectTitle).text = project.title
-        rowView.findViewById<TextView>(R.id.tvLastUpdate).text = project.getLastUpdateString()
-        rowView.findViewById<TextView>(R.id.tvEstimatedTime).text = String.format("Estimated %d h", project.estimatedHours)
-        rowView.findViewById<TextView>(R.id.tvWorkedTime).text = project.getTotalTimeSpendHourFormat()
+        setUI(convertView, position)
+        return convertView
+    }
 
-        rowView.tag = project
-        rowView.setOnClickListener(this::onProjectSelected)
+    private fun setUI(view : View, position : Int){
+        val projectDTO : ProjectDTO? = if (count > position) getItem(position) else null
 
-        return rowView
+        view.findViewById<TextView>(R.id.tvProjectTitle).text =
+            projectDTO?.title ?: ""
+     //  view.findViewById<TextView>(R.id.tvLastUpdate).text = projectDTO.getLastUpdateString()
+        view.findViewById<TextView>(R.id.tvEstimatedTime).text =
+            String.format("Estimated %d h", projectDTO?.estimatedHours) ?: ""
+        // view.findViewById<TextView>(R.id.tvWorkedTime).text = projectDTO.getTotalTimeSpendHourFormat()
+
+        view.tag = projectDTO
+        view.setOnClickListener(this::onProjectSelected)
     }
 
     private fun onProjectSelected(v : View){

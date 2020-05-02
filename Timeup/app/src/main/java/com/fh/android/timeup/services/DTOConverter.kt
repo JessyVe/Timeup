@@ -10,6 +10,7 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 
 object DTOConverter{
+    /*
     fun convertToProjectDTO(project: Project) : ProjectDTO{
         val timeMeasurements = project.timeMeasurements.map{ convertToTimeMeasurementDTO(it) }
         return ProjectDTO(project.title, ArrayList(timeMeasurements), project.estimatedHours,
@@ -31,5 +32,5 @@ object DTOConverter{
         return TimeMeasurement(
             LocalDateTime.ofInstant(Instant.ofEpochSecond(timeMeasurementDTO.beginTimestamp), ZoneId.systemDefault()),
             LocalDateTime.ofInstant(Instant.ofEpochSecond(timeMeasurementDTO.endTimestamp), ZoneId.systemDefault()))
-    }
+    }*/
 }
