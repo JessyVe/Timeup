@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#000000"
     android:backgroundTint="#000000"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:paddingTop="130dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp">
 
     <TextView
         android:id="@+id/tvHeading"
@@ -16,37 +19,25 @@
         android:text="My Projects"
         android:textColor="#D1D1D1"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.139"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.215" />
+        android:paddingBottom="28dp" />
 
     <Button
         android:id="@+id/btAddProject"
         android:layout_width="350dp"
         android:layout_height="33dp"
-        android:background="#303030"
+        android:background="#1C1C1C"
+        android:backgroundTintMode="screen"
         android:fontFamily="sans-serif-light"
         android:text="Add project +"
         android:textAllCaps="false"
-        android:textColor="#AFACAC"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.326" />
+        android:textColor="#AFACAC" />
 
     <ListView
         android:id="@+id/lvProjects"
-        android:layout_width="342dp"
-        android:layout_height="444dp"
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
         android:foregroundTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginTop="15dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"/>
+</LinearLayout>

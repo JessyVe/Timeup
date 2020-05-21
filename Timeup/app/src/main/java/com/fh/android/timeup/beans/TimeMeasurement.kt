@@ -1,20 +1,14 @@
-package com.fh.android.timeup.pojo
+package com.fh.android.timeup.beans
 
-import java.time.Duration
-import java.time.LocalDate
-import java.time.LocalDateTime
+import java.time.*
 
-/**
- * Represents on working session on a project.
- */
-data class TimeMeasurement(val beginDate : LocalDateTime,
-                           val endDate : LocalDateTime){
-
+data class TimeMeasurement(  val beginDate : LocalDateTime,
+                             val endDate : LocalDateTime) {
     /**
-     * Returns the absolute duration spend as a formatted string in hours.
+     * Returns the absolute duration spend on the project as a formatted string in hours.
      */
     fun getWorkingDurationHourFormat() : String {
-        var hourValue = getWorkingDuration()/3600.0
+        var hourValue = getWorkingDuration() / 3600.0
         return String.format("%.1f h", hourValue)
     }
 
