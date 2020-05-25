@@ -4,5 +4,6 @@ enum class UpdateStrings (val description : String){
     JUST_NOW("Just now"),
     TODAY("Today"),
     THIS_WEEK("This week"),
-    THIS_MONTH("This month")
+    THIS_MONTH("This month"),
+    UNKOWN("Unknown")
 }

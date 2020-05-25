@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.fh.android.timeup.R
 import com.fh.android.timeup.beans.Project
 import com.fh.android.timeup.dtos.ProjectDTO
+import com.fh.android.timeup.enums.UpdateStrings
 
 class CustomListItemAdapter(context : Context,
                             resource :Int,
@@ -21,7 +22,6 @@ class CustomListItemAdapter(context : Context,
     private var mList : ArrayList<ProjectDTO>
 
     private val mLayoutInflater: LayoutInflater
-    private var mContext : Context = context
 
     init{
         this.mResource = resource
@@ -43,7 +43,6 @@ class CustomListItemAdapter(context : Context,
             setUI(returnView, position)
             return returnView
         }
-
         setUI(convertView, position)
         return convertView
     }
@@ -53,10 +52,10 @@ class CustomListItemAdapter(context : Context,
 
         view.findViewById<TextView>(R.id.tvProjectTitle).text =
             projectDTO?.title ?: ""
-     //  view.findViewById<TextView>(R.id.tvLastUpdate).text = projectDTO.getLastUpdateString()
+        view.findViewById<TextView>(R.id.tvLastUpdate).text = projectDTO?.getLastUpdateString() ?: UpdateStrings.UNKOWN.description
         view.findViewById<TextView>(R.id.tvEstimatedTime).text =
-            String.format("Estimated %d h", projectDTO?.estimatedHours) ?: ""
-        // view.findViewById<TextView>(R.id.tvWorkedTime).text = projectDTO.getTotalTimeSpendHourFormat()
+            String.format("Estimated %d h", projectDTO?.estimatedHours)
+        view.findViewById<TextView>(R.id.tvWorkedTime).text = projectDTO?.getTotalTimeSpendHourFormat()
 
         view.tag = projectDTO
         view.setOnClickListener(this::onProjectSelected)

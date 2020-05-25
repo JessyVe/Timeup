@@ -79,6 +79,6 @@ class ProjectTests {
         var lastUpdateString = project?.getLastUpdateString()
 
         // assert
-        assertEquals(lastUpdateString, UpdateStrings.JUST_NOW.description);
+        assertEquals(lastUpdateString, UpdateStrings.TODAY.description);
     }
 }

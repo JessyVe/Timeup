@@ -1,16 +1,23 @@
 package com.fh.android.timeup.dtos
 
+import com.fh.android.timeup.beans.TimeMeasurement
+import com.fh.android.timeup.enums.UpdateStrings
 import com.google.firebase.database.DataSnapshot
 import java.lang.Exception
+import java.text.DecimalFormat
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ProjectDTO (snapshot: DataSnapshot?)
 {
     lateinit var title:String
-    var estimatedHours:Int = 0
+    var estimatedHours:Long = 0
     var isClosed:Boolean = false
     var projectHash:String = ""
 
-    var timeMeasurements:List<TimeMeasurementDTO> = mutableListOf()
+    var timeMeasurements:ArrayList<TimeMeasurementDTO> = arrayListOf()
 
     init {
         if(snapshot != null)
@@ -21,10 +28,10 @@ class ProjectDTO (snapshot: DataSnapshot?)
         try{
             val data : HashMap<String, Any> = snapshot.value as HashMap<String, Any>
             title = data["title"] as String
-            estimatedHours = data["estimatedHours"] as Int
+            estimatedHours = data["estimatedHours"] as Long
             isClosed = data["isClosed"] as Boolean
             projectHash =  data["projectHash"] as String
-            timeMeasurements = data["timeMeasurements"] as List<TimeMeasurementDTO>
+            timeMeasurements = data["timeMeasurements"] as ArrayList<TimeMeasurementDTO>
         } catch (ex : Exception){
             ex.printStackTrace()
         }
@@ -39,5 +46,78 @@ class ProjectDTO (snapshot: DataSnapshot?)
         map["timeMeasurements"] = timeMeasurements
 
         return map
+    }
+
+    /**
+     * Adds a new TimeMeasurement to the list of measurements.
+     */
+    fun addTimeMeasurement(timeMeasurement: TimeMeasurementDTO){
+        timeMeasurements.add(timeMeasurement)
+    }
+
+    /**
+     * Removes the specified TimeMeasurement
+     */
+    fun removeTimeMeasurement(timeMeasurement: TimeMeasurementDTO){
+        timeMeasurements.remove(timeMeasurement)
+    }
+
+    /**
+     * Returns the absolute duration spend as a formatted string in hours.
+     */
+    fun getTotalTimeSpendHourFormat() : String{
+        val dec = DecimalFormat("##.#")
+        var hourValue = getTotalTimeSpend()/3600.0
+
+        return dec.format(hourValue) + " h"
+    }
+
+    /**
+     * Returns the absolute time spend on the project.
+     */
+    private fun getTotalTimeSpend() : Long {
+        return timeMeasurements.map { measurement -> measurement.getWorkingDuration() }.sum()
+    }
+
+    /**
+     * Returns the last date an entry was made.
+     */
+    fun getLastUpdateDate() : LocalDate? {
+        return timeMeasurements.map{measurement -> measurement.getWorkDate()}.max()
+    }
+
+    /**
+     * Returns the last update string.
+     */
+    fun getLastUpdateString() : String {
+        var lastUpdateTimeStamp = getLastUpdateTimestamp()
+
+        if(lastUpdateTimeStamp == null)
+            return UpdateStrings.UNKOWN.description
+
+        var duration = Duration.between(lastUpdateTimeStamp, LocalDateTime.now()).abs().toMinutes()
+
+        when {
+            duration < 10 -> {
+                return UpdateStrings.JUST_NOW.description
+            }
+            duration < 60*24 -> {
+                return UpdateStrings.TODAY.description
+            }
+            duration < 60*24*7 -> {
+                return UpdateStrings.THIS_WEEK.description
+            }
+            duration < 60*24*30 -> {
+                return UpdateStrings.THIS_MONTH.description
+            }
+        }
+        return getLastUpdateDate()?.format(DateTimeFormatter.ISO_LOCAL_DATE) ?: "Unknown"
+    }
+
+    /**
+     * Returns the last end-timestamp an entry was made.
+     */
+    private fun getLastUpdateTimestamp() : LocalDateTime? {
+        return timeMeasurements.map{measurement -> measurement.beginDate }.max()
     }
 }
