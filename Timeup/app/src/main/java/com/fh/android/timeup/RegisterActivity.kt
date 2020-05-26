@@ -66,7 +66,6 @@ class RegisterActivity : AppCompatActivity() {
         val storageRef = storage.reference
         var islandRef = storageRef.child("time-logo.PNG")
 
-
         val ONE_MEGABYTE: Long = 1024 * 1024
         islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
             val bmp = BitmapFactory.decodeByteArray(it, 0, it.size)
@@ -77,7 +76,7 @@ class RegisterActivity : AppCompatActivity() {
                 )
             )
         }.addOnFailureListener {
-            // Handle any errors
+            Log.d("Register", "Unable to download image ${it.message.toString()}")
         }
     }
 }

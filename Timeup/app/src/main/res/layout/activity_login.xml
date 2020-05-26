@@ -11,18 +11,22 @@
         android:id="@+id/ivLogo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/ic_launcher_foreground"  />
 
     <EditText
         android:id="@+id/txEmail"
         android:layout_width="312dp"
         android:layout_height="50dp"
+        android:layout_marginStart="-10dp"
         android:layout_marginTop="70dp"
+        android:layout_marginEnd="-10dp"
         android:background="@drawable/rounded_text_view"
         android:ems="10"
         android:hint="Email"
