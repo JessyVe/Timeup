@@ -1,6 +1,5 @@
 package com.fh.android.timeup
 
-import android.R
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,7 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.fh.android.timeup.beans.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_register.*
@@ -25,7 +26,7 @@ class RegisterActivity : AppCompatActivity() {
             performRegistration()
         }
 
-        SetLogo()
+        setLogo()
 
         tvShowLogin.setOnClickListener {
             // launch login activity
@@ -52,7 +53,8 @@ class RegisterActivity : AppCompatActivity() {
             .addOnCompleteListener{
                 if(!it.isSuccessful)return@addOnCompleteListener
 
-                Log.d("Register", "Successfully crated user with uid: ${it.result?.user?.uid}")
+                Log.d("Register", "Successfully created user with uid: ${it.result?.user?.uid}")
+                saveUserToDatabase(username)
             }
             .addOnFailureListener{
                 val errorText = "Failed to create user! ${it.message}"
@@ -61,7 +63,21 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-    private fun SetLogo(){
+    private fun saveUserToDatabase(username:String){
+        val uid = FirebaseAuth.getInstance().uid ?: ""
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
+
+        val user = User(uid, username)
+        ref.setValue(user)
+            .addOnSuccessListener {
+                Log.d("Register", "Successfully saved user to database.")
+            }
+            .addOnFailureListener{
+                Log.d("Register", "Unable to save user data! ${it.message}")
+            }
+    }
+
+    private fun setLogo(){
         val storage = Firebase.storage("gs://timeup-b7f6a.appspot.com/")
         val storageRef = storage.reference
         var islandRef = storageRef.child("time-logo.PNG")
