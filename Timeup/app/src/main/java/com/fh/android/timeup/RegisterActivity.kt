@@ -3,39 +3,45 @@ package com.fh.android.timeup
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.solver.widgets.ConstraintWidget.VISIBLE
+import androidx.constraintlayout.widget.ConstraintSet.VISIBLE
 import com.fh.android.timeup.beans.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
-
 
 class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.fh.android.timeup.R.layout.activity_register)
+        setContentView(R.layout.activity_register)
 
         btRegister.setOnClickListener{
             performRegistration()
         }
-
-        setLogo()
 
         tvShowLogin.setOnClickListener {
             // launch login activity
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        GlobalScope.launch {
+            setLogo()
+        }
     }
 
-    private fun performRegistration(){
+    private fun performRegistration() {
         val email = txEmail.text.toString()
         val username = txUsername.text.toString()
         val password = txPassword.text.toString()
@@ -48,36 +54,56 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
+        vwLoading.visibility = android.view.View.VISIBLE
         // Firebase auth
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener{
-                if(!it.isSuccessful)return@addOnCompleteListener
+        GlobalScope.launch {
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                    if (!it.isSuccessful) return@addOnCompleteListener
 
-                Log.d("Register", "Successfully created user with uid: ${it.result?.user?.uid}")
-                saveUserToDatabase(username)
-            }
-            .addOnFailureListener{
-                val errorText = "Failed to create user! ${it.message}"
-                Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show()
-                Log.d("Register", errorText)
-            }
+                    Log.d("Register", "Successfully created user with uid: ${it.result?.user?.uid}")
+                    saveUserToDatabase(username)
+
+                    vwLoading.visibility = android.view.View.GONE
+                }
+                .addOnFailureListener {
+                    val errorText = "Failed to create user! ${it.message}"
+                    showToast(errorText, Toast.LENGTH_SHORT)
+                    Log.d("Register", errorText)
+
+                    progressBar.visibility = android.view.View.GONE
+                }
+        }
     }
 
-    private fun saveUserToDatabase(username:String){
+    private fun showToast(errorText : String, duration : Int) {
+        Toast.makeText(this, errorText, duration).show()
+    }
+
+    private fun saveUserToDatabase(username:String) {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
         val user = User(uid, username)
-        ref.setValue(user)
-            .addOnSuccessListener {
-                Log.d("Register", "Successfully saved user to database.")
-            }
-            .addOnFailureListener{
-                Log.d("Register", "Unable to save user data! ${it.message}")
-            }
+        GlobalScope.launch {
+            ref.setValue(user)
+                .addOnSuccessListener {
+                    Log.d("Register", "Successfully saved user to database.")
+
+                    launchMainActivity()
+                }
+                .addOnFailureListener {
+                    Log.d("Register", "Unable to save user data! ${it.message}")
+                }
+        }
     }
 
-    private fun setLogo(){
+    private fun launchMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun setLogo() {
         val storage = Firebase.storage("gs://timeup-b7f6a.appspot.com/")
         val storageRef = storage.reference
         var islandRef = storageRef.child("time-logo.PNG")
