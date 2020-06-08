@@ -21,10 +21,13 @@ class ProjectDTO (snapshot: DataSnapshot?)
     var projectHash:String = ""
 
     var timeMeasurements: ArrayList<TimeMeasurementDTO> = ArrayList()
+    var snapshot : DataSnapshot? = null
 
     init {
-        if(snapshot != null)
+        if(snapshot != null) {
             createProjectFromSnapshot(snapshot)
+            this.snapshot = snapshot
+        }
     }
 
     private fun createProjectFromSnapshot(snapshot : DataSnapshot){
@@ -34,10 +37,20 @@ class ProjectDTO (snapshot: DataSnapshot?)
             estimatedHours = data["estimatedHours"] as Long
             isClosed = data["isClosed"] as Boolean
             projectHash =  data["projectHash"] as String
-            timeMeasurements = data["timeMeasurements"] as ArrayList<TimeMeasurementDTO>
+            timeMeasurements = arrayListOf()
+
+            val mapList = data["timeMeasurements"] as ArrayList<HashMap<String, Any>>
+            for(map in mapList){
+                timeMeasurements.add(CreateTimeMeasurementFromMap(map))
+            }
+
         } catch (ex : Exception){
             ex.printStackTrace()
         }
+    }
+
+    private fun CreateTimeMeasurementFromMap(map : HashMap<String, Any>) : TimeMeasurementDTO{
+        return TimeMeasurementDTO(map["beginDate"] as Long, map["endDate"] as Long)
     }
 
     fun toMap() : HashMap<String, Any>{
@@ -49,6 +62,10 @@ class ProjectDTO (snapshot: DataSnapshot?)
         map["timeMeasurements"] = timeMeasurements
 
         return map
+    }
+
+    fun GetSnapshot() : DataSnapshot? {
+        return snapshot
     }
 
     /**

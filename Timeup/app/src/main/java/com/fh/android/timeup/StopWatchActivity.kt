@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fh.android.timeup.dtos.ProjectDTO
 import com.fh.android.timeup.dtos.TimeMeasurementDTO
 import com.fh.android.timeup.models.ProjectModel
+import com.google.android.gms.tasks.OnCompleteListener
 import kotlinx.android.synthetic.main.activity_stopwatch.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -56,10 +57,17 @@ class StopWatchActivity : AppCompatActivity() {
                 project.addTimeMeasurement(currentTimeMeasurement)
 
 
-                reOpenOverview()
+              //  reOpenOverview()
 
-/*                try {
-                    ProjectModel.saveProject(project, OnCompleteListener { task ->
+           try {
+                  val map:HashMap<String, Any> = HashMap()
+                  val key = ProjectModel.getProjectAt(index!!)!!.GetSnapshot()!!.key!!
+                  map[key] = project.toMap()
+                  ProjectModel.updateProject(
+                      map
+                  )
+
+                /*    ProjectModel.saveProject(project, OnCompleteListener { task ->
                         if (task.isCanceled) {
                             Toast.makeText(
                                 applicationContext,
@@ -74,7 +82,7 @@ class StopWatchActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                    })
+                    })*/
                 } catch (ex : Exception){
                     Toast.makeText(
                         applicationContext,
@@ -83,9 +91,7 @@ class StopWatchActivity : AppCompatActivity() {
                     ).show()
                 } finally {
                     reOpenOverview()
-                    var test = ProjectModel.getProjectAt(index ?: 0)
-                    Log.d("adökjfhng", test.toString())
-                }*/
+                }
             }
         }
 

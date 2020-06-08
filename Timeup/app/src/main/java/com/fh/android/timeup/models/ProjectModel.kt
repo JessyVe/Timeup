@@ -68,6 +68,11 @@ object ProjectModel : Observable() {
         return null
     }
 
+    fun updateProject(dataMap : HashMap<String, Any>){
+        val reference = getDatabaseRef()
+        reference?.updateChildren(dataMap)
+    }
+
     fun saveProject(projectDTO: ProjectDTO, onCompleteListener: OnCompleteListener<Void>?){
         val reference = getDatabaseRef()?.push()
         reference?.updateChildren(projectDTO.toMap())?.addOnCompleteListener{task ->
