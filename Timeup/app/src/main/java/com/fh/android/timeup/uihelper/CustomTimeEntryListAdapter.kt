@@ -8,7 +8,12 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.fh.android.timeup.R
 import com.fh.android.timeup.dtos.TimeMeasurementDTO
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CustomTimeEntryListAdapter(context : Context,
                             resource :Int,
@@ -46,7 +51,15 @@ class CustomTimeEntryListAdapter(context : Context,
     private fun setUI(view : View, position : Int){
         val timeMeasurement : TimeMeasurementDTO? = if (count > position) getItem(position) else null
 
-        view.findViewById<TextView>(R.id.txWorkDate).text = timeMeasurement?.getWorkDate()?.format(DateTimeFormatter.ISO_DATE)
-        view.findViewById<TextView>(R.id.txTotalTime).text = timeMeasurement?.getWorkingDurationHourFormat()
+        if(timeMeasurement != null) {
+            val workDate = LocalDate.of(LocalDateTime.ofInstant(Instant.ofEpochMilli(timeMeasurement.beginDate), TimeZone.getDefault().toZoneId()).year,
+                LocalDateTime.ofInstant(Instant.ofEpochMilli(timeMeasurement.beginDate), TimeZone.getDefault().toZoneId()).month,
+                LocalDateTime.ofInstant(Instant.ofEpochMilli(timeMeasurement.beginDate), TimeZone.getDefault().toZoneId()).dayOfMonth)
+
+            view.findViewById<TextView>(R.id.txWorkDate).text =
+                workDate.format(DateTimeFormatter.ISO_DATE)
+            view.findViewById<TextView>(R.id.txTotalTime).text =
+                timeMeasurement.getWorkingDurationHourFormat()
+        }
     }
 }

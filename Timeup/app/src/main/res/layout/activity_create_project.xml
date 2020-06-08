@@ -60,7 +60,7 @@
         android:layout_marginEnd="35dp"
         android:background="@drawable/rounded_button"
         android:text="Create"
-        android:textColor="#D1D1D1"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/txEstimatedHours"
         app:layout_constraintStart_toStartOf="@+id/txEstimatedHours"
         app:layout_constraintTop_toBottomOf="@+id/txEstimatedHours" />

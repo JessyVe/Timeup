@@ -48,6 +48,8 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         vwLoading.visibility = android.view.View.VISIBLE
+        vwLoading.bringToFront()
+
         // Firebase auth
         GlobalScope.launch {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)

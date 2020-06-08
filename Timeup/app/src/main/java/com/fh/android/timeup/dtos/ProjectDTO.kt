@@ -5,9 +5,13 @@ import com.google.firebase.database.DataSnapshot
 import java.lang.Exception
 import java.text.DecimalFormat
 import java.time.Duration
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class ProjectDTO (snapshot: DataSnapshot?)
 {
@@ -16,7 +20,7 @@ class ProjectDTO (snapshot: DataSnapshot?)
     var isClosed:Boolean = false
     var projectHash:String = ""
 
-    var timeMeasurements:ArrayList<TimeMeasurementDTO> = arrayListOf()
+    var timeMeasurements: ArrayList<TimeMeasurementDTO> = ArrayList()
 
     init {
         if(snapshot != null)
@@ -82,7 +86,11 @@ class ProjectDTO (snapshot: DataSnapshot?)
      * Returns the last date an entry was made.
      */
     fun getLastUpdateDate() : LocalDate? {
-        return timeMeasurements.map{measurement -> measurement.getWorkDate()}.max()
+        return timeMeasurements.map{measurement ->
+            LocalDate.of(LocalDateTime.ofInstant(Instant.ofEpochMilli(measurement.beginDate), TimeZone.getDefault().toZoneId()).year,
+            LocalDateTime.ofInstant(Instant.ofEpochMilli(measurement.beginDate), TimeZone.getDefault().toZoneId()).month,
+            LocalDateTime.ofInstant(Instant.ofEpochMilli(measurement.beginDate), TimeZone.getDefault().toZoneId()).dayOfMonth)
+        }.max()
     }
 
     /**
@@ -117,7 +125,8 @@ class ProjectDTO (snapshot: DataSnapshot?)
      * Returns the last end-timestamp an entry was made.
      */
     private fun getLastUpdateTimestamp() : LocalDateTime? {
-        return timeMeasurements.map{measurement -> measurement.beginDate }.max()
+        val beginDate = timeMeasurements.map{ measurement -> measurement.beginDate}.max() ?: return null
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(beginDate), TimeZone.getDefault().toZoneId())
     }
 
     fun getEstimatedTimeFormat() : String {

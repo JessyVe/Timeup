@@ -10,7 +10,7 @@ import kotlin.collections.ArrayList
 
 object ProjectModel : Observable() {
     private var mValueDataListener : ValueEventListener? = null
-    private var mProjectList : ArrayList<ProjectDTO>? = ArrayList()
+    private var mProjectList : ArrayList<ProjectDTO> = ArrayList()
 
     private fun getDatabaseRef():DatabaseReference?{
         return FirebaseDatabase.getInstance().reference.child("projects")
@@ -28,6 +28,7 @@ object ProjectModel : Observable() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 try {
                     Log.i("ProjectModel", "data update line 29")
+
                     val data : ArrayList<ProjectDTO> = ArrayList()
                     if(dataSnapshot != null){
                         for(snapshot : DataSnapshot in dataSnapshot.children){
@@ -60,8 +61,11 @@ object ProjectModel : Observable() {
         return mProjectList
     }
 
-    fun getProjectAt(index : Int) : ProjectDTO {
-        return mProjectList!![index]
+    fun getProjectAt(index : Int) : ProjectDTO? {
+        if(mProjectList.size > index)
+            return mProjectList[index]
+
+        return null
     }
 
     fun saveProject(projectDTO: ProjectDTO, onCompleteListener: OnCompleteListener<Void>?){

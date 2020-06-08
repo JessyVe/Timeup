@@ -2,6 +2,7 @@ package com.fh.android.timeup
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.fh.android.timeup.dtos.ProjectDTO
 import com.fh.android.timeup.models.ProjectModel
@@ -19,7 +20,13 @@ class ProjectOverviewActivity : AppCompatActivity() {
 
         projectIndex = intent.getSerializableExtra("PROJECT_POSITION") as Int
         val project = ProjectModel.getProjectAt(projectIndex)
-        initializeUI(project)
+
+        if(project == null){
+            Toast.makeText(this, "Project could not be loaded", Toast.LENGTH_LONG).show()
+            finish()
+        } else {
+            initializeUI(project)
+        }
     }
 
     private fun initializeUI(project : ProjectDTO){

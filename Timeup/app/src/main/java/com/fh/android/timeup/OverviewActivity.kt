@@ -25,10 +25,9 @@ class OverviewActivity : AppCompatActivity(), Observer {
 
         checkUserLogin()
 
-        ProjectModel
         ProjectModel.addObserver(this)
 
-        val data: ArrayList<ProjectDTO> = ArrayList()
+        val data: ArrayList<ProjectDTO> = ProjectModel.getData() ?: ArrayList()
         listAdapter = CustomListItemAdapter(this, R.layout.project_row, data)
         lvProjects.adapter = listAdapter
 
