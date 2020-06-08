@@ -1,22 +1,17 @@
 package com.fh.android.timeup
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ListView
-import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import com.fh.android.timeup.database_access.FirebaseAccess
 import com.fh.android.timeup.dtos.ProjectDTO
 import com.fh.android.timeup.models.ProjectModel
 import com.fh.android.timeup.uihelper.CustomListItemAdapter
-import com.google.android.gms.tasks.OnCompleteListener
-import kotlinx.coroutines.NonCancellable.cancel
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -30,6 +25,8 @@ class MainActivity : AppCompatActivity(), Observer {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        checkUserLogin()
+
         ProjectModel
         ProjectModel.addObserver(this)
 
@@ -37,6 +34,10 @@ class MainActivity : AppCompatActivity(), Observer {
         val data: ArrayList<ProjectDTO> = ArrayList()
         listAdapter = CustomListItemAdapter(this, R.layout.openprojectrow, data)
         lvProjects?.adapter = listAdapter
+
+        lvProjects?.setOnItemClickListener { parent, view, position, id ->
+            var p = listAdapter.getProjectAt(id)
+        }
 
         btAddProject = findViewById(R.id.btAddProject)
         btAddProject?.setOnClickListener {
@@ -65,6 +66,34 @@ class MainActivity : AppCompatActivity(), Observer {
             startActivity(intent)
             */
         }
+    }
+
+    private fun checkUserLogin(){
+        val uid = FirebaseAuth.getInstance().uid
+        if(uid == null){
+            launchRegistrationActivity()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item?.itemId){
+            R.id.menu_sign_out -> {
+                FirebaseAuth.getInstance().signOut()
+                launchRegistrationActivity()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun launchRegistrationActivity(){
+        val intent = Intent(this, RegisterActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     override fun update(p0: Observable?, p1: Any?) {

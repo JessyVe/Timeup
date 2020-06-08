@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/design_default_color_on_secondary">
+
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="sans-serif-light"
+        android:paddingBottom="28dp"
+        android:text="Create new Project"
+        android:textColor="#D1D1D1"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txEmail"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_text_view"
+        android:ems="10"
+        android:hint="Project name"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="20dp"
+        android:textColor="#1E1E1E"
+        app:layout_constraintEnd_toEndOf="@+id/tvHeading"
+        app:layout_constraintStart_toStartOf="@+id/tvHeading"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
+
+    <EditText
+        android:id="@+id/estimatedHours"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_text_view"
+        android:ems="10"
+        android:hint="Estimated working hours"
+        android:inputType="number"
+        android:paddingLeft="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/txEmail"
+        app:layout_constraintStart_toStartOf="@+id/txEmail"
+        app:layout_constraintTop_toBottomOf="@+id/txEmail" />
+
+    <Button
+        android:id="@+id/btCreateNewProject"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/rounded_button"
+        android:text="Create"
+        android:textColor="#D1D1D1"
+        app:layout_constraintEnd_toEndOf="@+id/estimatedHours"
+        app:layout_constraintStart_toStartOf="@+id/estimatedHours"
+        app:layout_constraintTop_toBottomOf="@+id/estimatedHours" />
+
+    <TextView
+        android:id="@+id/tvShowRegistration2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="Cancel creation"
+        android:textColor="#B5B2B2"
+        app:layout_constraintEnd_toEndOf="@+id/btCreateNewProject"
+        app:layout_constraintStart_toStartOf="@+id/btCreateNewProject"
+        app:layout_constraintTop_toBottomOf="@+id/btCreateNewProject" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
