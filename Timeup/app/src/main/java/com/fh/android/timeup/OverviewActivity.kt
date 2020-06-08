@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ListView
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.fh.android.timeup.dtos.ProjectDTO
 import com.fh.android.timeup.models.ProjectModel
@@ -39,31 +38,6 @@ class OverviewActivity : AppCompatActivity(), Observer {
         btAddProject?.setOnClickListener {
             val intent = Intent(this, CreateProjectActivity::class.java)
             startActivity(intent)
-
-            /*
-            val newProject = ProjectDTO(null)
-            newProject.title = "Project 1"
-            newProject.estimatedHours = 500
-
-            ProjectModel.saveProject(newProject, OnCompleteListener {
-              task -> if(task.isComplete){
-              Toast.makeText(applicationContext, "New Project was saved!", Toast.LENGTH_SHORT)
-               }
-              if(task.isCanceled){
-                  Toast.makeText(applicationContext, "Unable to create project", Toast.LENGTH_SHORT)
-              }
-              if(task.isSuccessful){
-                  Toast.makeText(applicationContext, "New Project was saved successfully!", Toast.LENGTH_SHORT)
-              }
-            })
-            */
-
-            /*
-            val intent = Intent(this, ProjectOverviewActivity::class.java).apply {
-             putExtra("EXTRA_MESSAGE", "message")
-            }
-            startActivity(intent)
-            */
         }
     }
 

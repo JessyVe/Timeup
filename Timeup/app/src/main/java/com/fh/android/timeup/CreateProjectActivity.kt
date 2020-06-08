@@ -14,9 +14,6 @@ class CreateProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_project)
 
-        tvCancelCreation.setOnClickListener {
-            finish()
-        }
         btCreateNewProject.setOnClickListener{
            createProject()
         }
@@ -28,7 +25,7 @@ class CreateProjectActivity : AppCompatActivity() {
 
         if(projectname.equals("")){
             Toast.makeText(this, "No projectname was given!", Toast.LENGTH_SHORT).show()
-            return;
+            return
         }
 
         if(estimatedHourString.equals(""))

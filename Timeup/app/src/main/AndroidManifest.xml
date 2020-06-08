@@ -26,11 +26,13 @@
         </activity>
 
         <activity android:name=".LoginActivity"/>
-        <activity android:name=".CreateProjectActivity"/>
+        <activity android:name=".CreateProjectActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProjectOverviewActivity"/>
+        </activity>
 
         <activity
             android:name=".ProjectOverviewActivity"
-            android:label="@string/title_activity_project_overview"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
