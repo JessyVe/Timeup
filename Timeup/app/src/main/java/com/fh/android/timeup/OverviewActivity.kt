@@ -80,7 +80,7 @@ class OverviewActivity : AppCompatActivity(), Observer {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item?.itemId){
+        when(item.itemId){
             R.id.menu_sign_out -> {
                 FirebaseAuth.getInstance().signOut()
                 launchRegistrationActivity()
@@ -105,6 +105,7 @@ class OverviewActivity : AppCompatActivity(), Observer {
         }
     }
 
+    /*
     override fun onResume() {
         super.onResume()
         ProjectModel.addObserver(this)
@@ -118,5 +119,5 @@ class OverviewActivity : AppCompatActivity(), Observer {
     override fun onStop() {
         super.onStop()
         ProjectModel.deleteObserver(this)
-    }
+    }*/
 }

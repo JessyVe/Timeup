@@ -27,7 +27,7 @@ object ProjectModel : Observable() {
 
         mValueDataListener = object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                try{
+                try {
                     Log.i("ProjectModel", "data update line 29")
                     val data : ArrayList<ProjectDTO> = ArrayList()
                     if(dataSnapshot != null){
