@@ -4,22 +4,18 @@ import com.fh.android.timeup.beans.Project
 import com.fh.android.timeup.beans.TimeMeasurement
 import com.fh.android.timeup.dtos.ProjectDTO
 import com.fh.android.timeup.dtos.TimeMeasurementDTO
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZoneOffset
 
 object DTOConverter{
-    /*
+ /*
     fun convertToProjectDTO(project: Project) : ProjectDTO{
         val timeMeasurements = project.timeMeasurements.map{ convertToTimeMeasurementDTO(it) }
+
         return ProjectDTO(project.title, ArrayList(timeMeasurements), project.estimatedHours,
             project.isClosed, project.projectHash)
     }
 
     private fun convertToTimeMeasurementDTO(timeMeasurement: TimeMeasurement) : TimeMeasurementDTO{
-        return TimeMeasurementDTO(timeMeasurement.beginDate.atZone(ZoneOffset.UTC).toEpochSecond(),
-                                  timeMeasurement.endDate.atZone(ZoneOffset.UTC).toEpochSecond())
+        return TimeMeasurementDTO(timeMeasurement.beginDate, timeMeasurement.endDate)
     }
 
     fun convertFromProjectDTO(projectDTO: ProjectDTO) : Project{
@@ -29,8 +25,6 @@ object DTOConverter{
     }
 
     private fun convertFromTimeMeasurementDTO(timeMeasurementDTO: TimeMeasurementDTO) : TimeMeasurement{
-        return TimeMeasurement(
-            LocalDateTime.ofInstant(Instant.ofEpochSecond(timeMeasurementDTO.beginTimestamp), ZoneId.systemDefault()),
-            LocalDateTime.ofInstant(Instant.ofEpochSecond(timeMeasurementDTO.endTimestamp), ZoneId.systemDefault()))
+        return TimeMeasurement(timeMeasurementDTO.beginDate, timeMeasurementDTO.endDate)
     }*/
 }

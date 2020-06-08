@@ -35,5 +35,10 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OverviewActivity"/>
         </activity>
+
+        <activity android:name=".StopWatchActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProjectOverviewActivity"/>
+        </activity>
     </application>
 </manifest>

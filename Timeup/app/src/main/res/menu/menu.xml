@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
+    <item android:title="Momentum"
         android:id="@+id/menu_sign_out"
         android:icon="@drawable/twotone_exit_to_app_white_18dp"
         app:showAsAction="ifRoom" />

@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter
 
 data class Project (val title:String,
                     val timeMeasurements:ArrayList<TimeMeasurement>,
-                    val estimatedHours:Int,
+                    val estimatedHours:Long,
                     val isClosed:Boolean,
                     var projectHash:String = "") : IHashable {
 

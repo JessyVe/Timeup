@@ -32,9 +32,9 @@ class OverviewActivity : AppCompatActivity(), Observer {
         listAdapter = CustomListItemAdapter(this, R.layout.project_row, data)
         lvProjects.adapter = listAdapter
 
-        lvProjects.setOnItemClickListener { parent, view, position, id ->
-            val selection = listAdapter!!.getProjectAt(position)
+        lvProjects.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, ProjectOverviewActivity::class.java)
+            intent.putExtra("PROJECT_POSITION", position)
             startActivity(intent)
         }
 
@@ -83,7 +83,6 @@ class OverviewActivity : AppCompatActivity(), Observer {
         }
     }
 
-    /*
     override fun onResume() {
         super.onResume()
         ProjectModel.addObserver(this)
@@ -97,5 +96,5 @@ class OverviewActivity : AppCompatActivity(), Observer {
     override fun onStop() {
         super.onStop()
         ProjectModel.deleteObserver(this)
-    }*/
+    }
 }

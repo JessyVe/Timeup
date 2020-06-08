@@ -1,6 +1,5 @@
 package com.fh.android.timeup.models
 
-import android.media.MediaPlayer
 import android.util.Log
 import com.fh.android.timeup.dtos.ProjectDTO
 import com.google.android.gms.tasks.OnCompleteListener
@@ -59,6 +58,10 @@ object ProjectModel : Observable() {
 
     fun getData(): ArrayList<ProjectDTO>?{
         return mProjectList
+    }
+
+    fun getProjectAt(index : Int) : ProjectDTO {
+        return mProjectList!![index]
     }
 
     fun saveProject(projectDTO: ProjectDTO, onCompleteListener: OnCompleteListener<Void>?){

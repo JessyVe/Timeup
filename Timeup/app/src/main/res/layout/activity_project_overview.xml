@@ -15,7 +15,7 @@
         android:layout_marginEnd="20dp"
         android:fontFamily="sans-serif-light"
         android:paddingBottom="28dp"
-        android:text="Create new Project"
+        android:text="Projectname"
         android:textColor="#D1D1D1"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,10 +38,11 @@
         android:id="@+id/tvTotalTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="35dp"
         android:fontFamily="sans-serif-light"
         android:paddingBottom="28dp"
         android:text="Total spend 120"
+        android:textAlignment="textEnd"
         android:textColor="#D1D1D1"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/tvProjectName"
@@ -49,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvProjectName" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btDeleteProject"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:background="#303030"
@@ -59,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvEstimatedTime" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btStartWorking"
         android:layout_width="0dp"
         android:layout_height="47dp"
         android:layout_marginStart="5dp"
@@ -68,7 +69,7 @@
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/tvTotalTime"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@+id/btDeleteProject"
         app:layout_constraintTop_toBottomOf="@+id/tvEstimatedTime" />
 
     <ListView
@@ -77,8 +78,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintEnd_toEndOf="@+id/btStartWorking"
+        app:layout_constraintStart_toStartOf="@+id/btDeleteProject"
+        app:layout_constraintTop_toBottomOf="@+id/btStartWorking" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

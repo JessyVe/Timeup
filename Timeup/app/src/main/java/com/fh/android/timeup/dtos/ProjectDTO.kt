@@ -1,6 +1,5 @@
 package com.fh.android.timeup.dtos
 
-import com.fh.android.timeup.beans.TimeMeasurement
 import com.fh.android.timeup.enums.UpdateStrings
 import com.google.firebase.database.DataSnapshot
 import java.lang.Exception
@@ -119,5 +118,9 @@ class ProjectDTO (snapshot: DataSnapshot?)
      */
     private fun getLastUpdateTimestamp() : LocalDateTime? {
         return timeMeasurements.map{measurement -> measurement.beginDate }.max()
+    }
+
+    fun getEstimatedTimeFormat() : String {
+        return String.format("Estimated hours %d h", estimatedHours)
     }
 }

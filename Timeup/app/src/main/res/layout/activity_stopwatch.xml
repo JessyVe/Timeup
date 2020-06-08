@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/design_default_color_on_secondary">
+
+
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="250dp"
+        android:fontFamily="sans-serif-light"
+        android:paddingBottom="28dp"
+        android:text="My Project"
+        android:textAlignment="center"
+        android:textColor="#D1D1D1"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="00:00:00"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="82dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvHeading"
+        app:layout_constraintStart_toStartOf="@+id/tvHeading"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
+
+    <Button
+        android:id="@+id/btStartTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="160dp"
+        android:background="@drawable/rounded_button"
+        android:text="Start"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvTime"
+        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+
+    <Button
+        android:id="@+id/btStopTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_button_dark"
+        android:enabled="false"
+        android:text="Stop"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btStartTimer"
+        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+</androidx.constraintlayout.widget.ConstraintLayout>
