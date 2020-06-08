@@ -7,27 +7,27 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.fh.android.timeup.R
-import com.fh.android.timeup.dtos.ProjectDTO
-import com.fh.android.timeup.enums.UpdateStrings
+import com.fh.android.timeup.dtos.TimeMeasurementDTO
+import java.time.format.DateTimeFormatter
 
-class CustomListItemAdapter(context : Context,
+class CustomTimeEntryListAdapter(context : Context,
                             resource :Int,
-                            projectList : ArrayList<ProjectDTO>)
-    : ArrayAdapter<ProjectDTO>(context, resource, projectList) {
+                            timeMeasurementList : ArrayList<TimeMeasurementDTO>)
+    : ArrayAdapter<TimeMeasurementDTO>(context, resource, timeMeasurementList) {
 
     private var mResource : Int = 0
-    private var mList : ArrayList<ProjectDTO>
+    private var mList : ArrayList<TimeMeasurementDTO>
 
     private val mLayoutInflater: LayoutInflater
 
     init{
         this.mResource = resource
-        this.mList = projectList
+        this.mList = timeMeasurementList
         this.mLayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-       val returnView: View?
+        val returnView: View?
 
         if(convertView == null){
             returnView = try {
@@ -44,19 +44,9 @@ class CustomListItemAdapter(context : Context,
     }
 
     private fun setUI(view : View, position : Int){
-        val projectDTO : ProjectDTO? = if (count > position) getItem(position) else null
+        val timeMeasurement : TimeMeasurementDTO? = if (count > position) getItem(position) else null
 
-        view.findViewById<TextView>(R.id.tvProjectTitle).text =
-            projectDTO?.title ?: ""
-        view.findViewById<TextView>(R.id.tvLastUpdate).text = projectDTO?.getLastUpdateString() ?: UpdateStrings.UNKOWN.description
-        view.findViewById<TextView>(R.id.tvEstimatedTime).text =
-            String.format("Estimated %d h", projectDTO?.estimatedHours)
-        view.findViewById<TextView>(R.id.tvWorkedTime).text = projectDTO?.getTotalTimeSpendHourFormat()
-
-        view.tag = projectDTO
-    }
-    
-    fun getProjectAt(index : Int) : ProjectDTO{
-        return mList[index]
+        view.findViewById<TextView>(R.id.txWorkDate).text = timeMeasurement?.getWorkDate()?.format(DateTimeFormatter.ISO_DATE)
+        view.findViewById<TextView>(R.id.txTotalTime).text = timeMeasurement?.getWorkingDurationHourFormat()
     }
 }
