@@ -48,8 +48,9 @@ class LoginActivity : AppCompatActivity(){
                 Log.d("Login", "Successfully logged into database.")
 
                 // launch main activity
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, OverviewActivity::class.java)
                 startActivity(intent)
+
                 vwLoading.visibility = android.view.View.GONE
             }
             .addOnFailureListener{

@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(), Observer {
+class OverviewActivity : AppCompatActivity(), Observer {
 
     private var lvProjects: ListView? = null
     private var btAddProject: Button? = null
@@ -35,12 +35,11 @@ class MainActivity : AppCompatActivity(), Observer {
         listAdapter = CustomListItemAdapter(this, R.layout.openprojectrow, data)
         lvProjects?.adapter = listAdapter
 
-        lvProjects?.setOnItemClickListener { parent, view, position, id ->
-            var p = listAdapter.getProjectAt(id)
-        }
-
         btAddProject = findViewById(R.id.btAddProject)
         btAddProject?.setOnClickListener {
+            val intent = Intent(this, CreateProjectActivity::class.java)
+            startActivity(intent)
+
             /*
             val newProject = ProjectDTO(null)
             newProject.title = "Project 1"

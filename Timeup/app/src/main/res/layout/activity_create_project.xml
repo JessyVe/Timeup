@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/estimatedHours" />
 
     <TextView
-        android:id="@+id/tvShowRegistration2"
+        android:id="@+id/tvCancelCreation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"

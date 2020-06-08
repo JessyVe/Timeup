@@ -29,7 +29,6 @@ class CustomListItemAdapter(context : Context,
         this.mLayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
        val returnView: View?
 
@@ -58,11 +57,9 @@ class CustomListItemAdapter(context : Context,
         view.findViewById<TextView>(R.id.tvWorkedTime).text = projectDTO?.getTotalTimeSpendHourFormat()
 
         view.tag = projectDTO
-        view.setOnClickListener(this::onProjectSelected)
     }
 
-    private fun onProjectSelected(v : View){
-        var project = v.tag as Project
-        Toast.makeText(context, "Clicked on " + project.title, Toast.LENGTH_SHORT).show()
+    public fun getProjectAt(index : Int) : ProjectDTO {
+        return mList[index]
     }
 }

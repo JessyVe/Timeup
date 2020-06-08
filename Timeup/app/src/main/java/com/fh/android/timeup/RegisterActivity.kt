@@ -3,13 +3,10 @@ package com.fh.android.timeup
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.solver.widgets.ConstraintWidget.VISIBLE
-import androidx.constraintlayout.widget.ConstraintSet.VISIBLE
 import com.fh.android.timeup.beans.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -71,7 +68,7 @@ class RegisterActivity : AppCompatActivity() {
                     showToast(errorText, Toast.LENGTH_SHORT)
                     Log.d("Register", errorText)
 
-                    progressBar.visibility = android.view.View.GONE
+                    vwLoading.visibility = android.view.View.GONE
                 }
         }
     }
@@ -90,6 +87,8 @@ class RegisterActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     Log.d("Register", "Successfully saved user to database.")
 
+                    val intent = Intent(this@RegisterActivity, OverviewActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                     launchMainActivity()
                 }
                 .addOnFailureListener {
@@ -99,7 +98,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun launchMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, OverviewActivity::class.java)
         startActivity(intent)
     }
 
