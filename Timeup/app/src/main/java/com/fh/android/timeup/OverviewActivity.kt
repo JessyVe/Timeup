@@ -2,21 +2,21 @@ package com.fh.android.timeup
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.fh.android.timeup.dtos.ProjectDTO
 import com.fh.android.timeup.models.ProjectModel
 import com.fh.android.timeup.uihelper.CustomListItemAdapter
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class OverviewActivity : AppCompatActivity(), Observer {
 
-    private var lvProjects: ListView? = null
     private var btAddProject: Button? = null
     private var listAdapter: CustomListItemAdapter? = null
 
@@ -29,10 +29,15 @@ class OverviewActivity : AppCompatActivity(), Observer {
         ProjectModel
         ProjectModel.addObserver(this)
 
-        lvProjects = findViewById(R.id.lvProjects)
         val data: ArrayList<ProjectDTO> = ArrayList()
-        listAdapter = CustomListItemAdapter(this, R.layout.openprojectrow, data)
-        lvProjects?.adapter = listAdapter
+        listAdapter = CustomListItemAdapter(this, R.layout.project_row, data)
+        lvProjects.adapter = listAdapter
+
+        lvProjects.setOnItemClickListener { parent, view, position, id ->
+            val selection = listAdapter!!.getProjectAt(position)
+            val intent = Intent(this, ProjectOverviewActivity::class.java)
+            startActivity(intent)
+        }
 
         btAddProject = findViewById(R.id.btAddProject)
         btAddProject?.setOnClickListener {

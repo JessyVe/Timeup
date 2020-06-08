@@ -28,13 +28,12 @@
         <activity android:name=".LoginActivity"/>
         <activity android:name=".CreateProjectActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ProjectOverviewActivity"/>
+                android:value=".OverviewActivity"/>
         </activity>
 
-        <activity
-            android:name=".ProjectOverviewActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".ProjectOverviewActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OverviewActivity"/>
         </activity>
     </application>
-
 </manifest>
