@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="75dp"
         android:layout_marginEnd="60dp"
@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground"  />
+        app:srcCompat="@drawable/momentum_logo" />
 
     <EditText
         android:id="@+id/txEmail"
