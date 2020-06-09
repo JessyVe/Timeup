@@ -55,7 +55,7 @@ object ProjectModel : Observable() {
     }
 
     fun getProjectAt(index : Int) : ProjectDTO? {
-        if(mProjectList.size > index)
+        if(mProjectList.size > index && index > -1)
             return mProjectList[index]
 
         return null

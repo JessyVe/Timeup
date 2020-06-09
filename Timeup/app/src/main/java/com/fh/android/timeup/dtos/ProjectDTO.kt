@@ -17,8 +17,6 @@ class ProjectDTO (snapshot: DataSnapshot?)
 {
     lateinit var title:String
     var estimatedHours:Long = 0
-    var isClosed:Boolean = false
-    var projectHash:String = ""
 
     var timeMeasurements: ArrayList<TimeMeasurementDTO> = ArrayList()
     var snapshot : DataSnapshot? = null
@@ -35,8 +33,6 @@ class ProjectDTO (snapshot: DataSnapshot?)
             val data : HashMap<String, Any> = snapshot.value as HashMap<String, Any>
             title = data["title"] as String
             estimatedHours = data["estimatedHours"] as Long
-            isClosed = data["isClosed"] as Boolean
-            projectHash =  data["projectHash"] as String
             timeMeasurements = arrayListOf()
 
             val mapList = data["timeMeasurements"] as ArrayList<HashMap<String, Any>>
@@ -57,8 +53,6 @@ class ProjectDTO (snapshot: DataSnapshot?)
         val map:HashMap<String, Any> = HashMap()
         map["title"] = title
         map["estimatedHours"] = estimatedHours
-        map["isClosed"] = isClosed
-        map["projectHash"] = projectHash
         map["timeMeasurements"] = timeMeasurements
 
         return map

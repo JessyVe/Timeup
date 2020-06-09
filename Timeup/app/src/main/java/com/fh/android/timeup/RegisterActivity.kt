@@ -102,23 +102,4 @@ class RegisterActivity : AppCompatActivity() {
         val intent = Intent(this, OverviewActivity::class.java)
         startActivity(intent)
     }
-
-    private fun setLogo() {
-        val storage = Firebase.storage("gs://timeup-b7f6a.appspot.com/")
-        val storageRef = storage.reference
-        var islandRef = storageRef.child("time-logo.PNG")
-
-        val ONE_MEGABYTE: Long = 1024 * 1024
-        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
-            val bmp = BitmapFactory.decodeByteArray(it, 0, it.size)
-            ivLogo.setImageBitmap(
-                Bitmap.createScaledBitmap(
-                    bmp, (ivLogo.getWidth() - ivLogo.getWidth() * 0.3).roundToInt(),
-                    (ivLogo.getHeight() - ivLogo.getHeight() * 0.3).roundToInt(), false
-                )
-            )
-        }.addOnFailureListener {
-            Log.d("Register", "Unable to download image ${it.message.toString()}")
-        }
-    }
 }

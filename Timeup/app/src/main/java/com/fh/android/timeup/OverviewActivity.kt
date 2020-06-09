@@ -59,11 +59,15 @@ class OverviewActivity : AppCompatActivity(), Observer {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+       when(item.itemId){
             R.id.menu_sign_out -> {
                 FirebaseAuth.getInstance().signOut()
                 launchRegistrationActivity()
             }
+           R.id.about -> {
+               val intent = Intent(this, AboutActivity::class.java)
+               startActivity(intent)
+           }
         }
         return super.onOptionsItemSelected(item)
     }

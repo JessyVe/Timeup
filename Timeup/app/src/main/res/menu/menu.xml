@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Momentum"
-        android:id="@+id/menu_sign_out"
-        android:icon="@drawable/twotone_exit_to_app_white_18dp"
-        app:showAsAction="ifRoom" />
+    <group android:id="@+id/grp1">
+        <item android:id="@+id/about"
+            android:title="About"
+            app:showAsAction="never" />
+    </group>
+
+    <group android:id="@+id/grp2">
+        <item android:id="@+id/menu_sign_out"
+            android:title="Sign out"
+            app:showAsAction="never" />
+    </group>
 </menu>

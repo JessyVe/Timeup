@@ -37,5 +37,10 @@
         </activity>
 
         <activity android:name=".StopWatchActivity"/>
+
+        <activity android:name=".AboutActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OverviewActivity"/>
+        </activity>
     </application>
 </manifest>
