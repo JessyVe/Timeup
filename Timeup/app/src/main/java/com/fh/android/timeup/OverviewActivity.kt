@@ -23,10 +23,12 @@ class OverviewActivity : AppCompatActivity(), Observer {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        checkUserLogin()
-
+        checkIfUserIsLoggedIn()
         ProjectModel.addObserver(this)
+        initializeUI()
+    }
 
+    private fun initializeUI(){
         val data: ArrayList<ProjectDTO> = ProjectModel.getData() ?: ArrayList()
         listAdapter = CustomListItemAdapter(this, R.layout.project_row, data)
         lvProjects.adapter = listAdapter
@@ -44,7 +46,7 @@ class OverviewActivity : AppCompatActivity(), Observer {
         }
     }
 
-    private fun checkUserLogin(){
+    private fun checkIfUserIsLoggedIn(){
         val uid = FirebaseAuth.getInstance().uid
         if(uid == null){
             launchRegistrationActivity()

@@ -14,17 +14,21 @@ class CreateProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_project)
 
+        initializeUI()
+    }
+
+    private fun initializeUI(){
         btCreateNewProject.setOnClickListener{
-           createProject()
+            createProject()
         }
     }
 
     private fun createProject(){
-        val projectname = txProjectname.text.toString()
+        val projectName = txProjectname.text.toString()
         var estimatedHourString = txEstimatedHours.text.toString()
 
-        if(projectname.equals("")){
-            Toast.makeText(this, "No projectname was given!", Toast.LENGTH_SHORT).show()
+        if(projectName.equals("")){
+            Toast.makeText(this, "No project name was given!", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -32,7 +36,7 @@ class CreateProjectActivity : AppCompatActivity() {
             estimatedHourString = "0"
 
         val newProject = ProjectDTO(null)
-        newProject.title = projectname
+        newProject.title = projectName
         newProject.estimatedHours = estimatedHourString.toLong()
 
         ProjectModel.saveProject(newProject, OnCompleteListener { task ->

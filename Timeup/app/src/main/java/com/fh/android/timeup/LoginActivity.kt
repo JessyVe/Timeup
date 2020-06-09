@@ -14,13 +14,16 @@ class LoginActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_login)
+        initializeUI()
+    }
 
+    private fun initializeUI(){
         btLogin.setOnClickListener {
             val email = txEmail.text.toString()
             val password = txPassword.text.toString()
 
+            vwLoading.bringToFront()
             vwLoading.visibility = android.view.View.VISIBLE
             performLogin(email, password)
         }

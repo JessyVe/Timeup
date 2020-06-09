@@ -22,15 +22,10 @@ object ProjectModel : Observable() {
         }
         mValueDataListener = null
 
-        Log.i("ProjectModel", "data init line 24")
-
         mValueDataListener = object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 try {
-                    Log.i("ProjectModel", "data update line 29")
-
                     val data : ArrayList<ProjectDTO> = ArrayList()
-                    if(dataSnapshot != null){
                         for(snapshot : DataSnapshot in dataSnapshot.children){
                             try{
                                 data.add(ProjectDTO(snapshot))
@@ -39,19 +34,17 @@ object ProjectModel : Observable() {
                             }
                         }
                         mProjectList = data
-                        Log.i("ProjectModel", "data updated " + mProjectList!!.size)
+                        Log.i("ProjectModel", "data updated " + mProjectList.size)
                         setChanged()
                         notifyObservers()
-                    }
+
                 } catch (ex :Exception){
                     ex.printStackTrace()
                 }
             }
 
             override fun onCancelled(p0: DatabaseError) {
-                if(p0 != null){
-                    Log.i("ProjectModel", "Line 51: Data update cancelled. Err: ${p0.message}")
-                }
+               Log.i("ProjectModel", "Data update was cancelled. Err: ${p0.message}")
             }
         }
         getDatabaseRef()?.addValueEventListener(mValueDataListener as ValueEventListener)

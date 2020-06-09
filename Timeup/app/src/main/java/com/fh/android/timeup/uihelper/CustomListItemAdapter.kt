@@ -48,15 +48,11 @@ class CustomListItemAdapter(context : Context,
 
         view.findViewById<TextView>(R.id.tvProjectTitle).text =
             projectDTO?.title ?: ""
-        view.findViewById<TextView>(R.id.tvLastUpdate).text = projectDTO?.getLastUpdateString() ?: UpdateStrings.UNKOWN.description
+        view.findViewById<TextView>(R.id.tvLastUpdate).text = projectDTO?.getLastUpdateString()
         view.findViewById<TextView>(R.id.tvEstimatedTime).text =
             String.format("Estimated %d h", projectDTO?.estimatedHours)
         view.findViewById<TextView>(R.id.tvWorkedTime).text = projectDTO?.getTotalTimeSpendHourFormat()
 
         view.tag = projectDTO
-    }
-    
-    fun getProjectAt(index : Int) : ProjectDTO{
-        return mList[index]
     }
 }

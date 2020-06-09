@@ -23,12 +23,15 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        initializeUI()
+    }
+
+    private fun initializeUI(){
         btRegister.setOnClickListener{
             performRegistration()
         }
 
         tvShowLogin.setOnClickListener {
-            // launch login activity
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }

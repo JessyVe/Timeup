@@ -114,26 +114,19 @@ class ProjectDTO (snapshot: DataSnapshot?)
      * Returns the last update string.
      */
     fun getLastUpdateString() : String {
-        var lastUpdateTimeStamp = getLastUpdateTimestamp()
-
-        if(lastUpdateTimeStamp == null)
-            return UpdateStrings.UNKOWN.description
-
-        var duration = Duration.between(lastUpdateTimeStamp, LocalDateTime.now()).abs().toMinutes()
+        val lastUpdateTimeStamp: LocalDateTime? = getLastUpdateTimestamp() ?:
+                return UpdateStrings.UNKNOWN.description
+        val duration = Duration.between(lastUpdateTimeStamp, LocalDateTime.now()).abs().toMinutes()
 
         when {
-            duration < 10 -> {
-                return UpdateStrings.JUST_NOW.description
-            }
-            duration < 60*24 -> {
-                return UpdateStrings.TODAY.description
-            }
-            duration < 60*24*7 -> {
-                return UpdateStrings.THIS_WEEK.description
-            }
-            duration < 60*24*30 -> {
-                return UpdateStrings.THIS_MONTH.description
-            }
+            duration < 10 &&
+                    lastUpdateTimeStamp?.format(DateTimeFormatter.BASIC_ISO_DATE) == LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)
+                            -> return UpdateStrings.JUST_NOW.description
+            duration < 60*24 &&
+                    lastUpdateTimeStamp?.format(DateTimeFormatter.BASIC_ISO_DATE) == LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)
+                            -> return UpdateStrings.TODAY.description
+            duration < 60*24*7 -> return UpdateStrings.THIS_WEEK.description
+            duration < 60*24*30 -> return UpdateStrings.THIS_MONTH.description
         }
         return getLastUpdateDate()?.format(DateTimeFormatter.ISO_LOCAL_DATE) ?: "Unknown"
     }
