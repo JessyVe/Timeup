@@ -38,49 +38,63 @@ class StopWatchActivity : AppCompatActivity() {
                 return@setOnClickListener
 
             isWatchRunning = true
-            btStopTimer.isEnabled = true
-            btStartTimer.isEnabled = false
+            btStopTimer.visibility = android.view.View.VISIBLE
+            btStopTimer.bringToFront()
+            btStartTimer.visibility = android.view.View.GONE
 
             val currentTimeMeasurement = TimeMeasurementDTO (LocalDateTime.now().toMillis(), LocalDateTime.now().toMillis())
             GlobalScope.launch {
                 while (isWatchRunning) {
 
                     val pastSeconds = ChronoUnit.SECONDS.between(
-                        LocalDateTime.ofInstant(Instant.ofEpochMilli(currentTimeMeasurement.beginDate),
-                            TimeZone.getDefault().toZoneId()), LocalDateTime.now())
+                        LocalDateTime.ofInstant(
+                            Instant.ofEpochMilli(currentTimeMeasurement.beginDate),
+                            TimeZone.getDefault().toZoneId()
+                        ), LocalDateTime.now()
+                    )
 
-                    tvTime.text = String.format("%02d:%02d:%02d", pastSeconds / 3600, (pastSeconds % 3600) / 60, pastSeconds % 60)
+                    tvTime.text = String.format(
+                        "%02d:%02d:%02d",
+                        pastSeconds / 3600,
+                        (pastSeconds % 3600) / 60,
+                        pastSeconds % 60
+                    )
                     Thread.sleep(1_000)
                 }
                 currentTimeMeasurement.setNewEndDate(LocalDateTime.now().toMillis())
                 project.addTimeMeasurement(currentTimeMeasurement)
-           try {
-                  val map:HashMap<String, Any> = HashMap()
-                  val key = ProjectModel.getProjectAt(index!!)!!.GetSnapshot()!!.key!!
-                  map[key] = project.toMap()
-                  ProjectModel.updateProject(
-                      map
-                  )
-                } catch (ex : Exception){
-                    Toast.makeText(
-                        applicationContext,
-                        "Time measurement was not added. ${ex.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } finally {
-                    reOpenOverview()
-                }
+                updateDatabaseEntry(project)
             }
         }
 
         btStopTimer.setOnClickListener {
             isWatchRunning = false
-            btStopTimer.isEnabled = false
-            btStartTimer.isEnabled = true
+            btStopTimer.visibility = android.view.View.GONE
+            btStartTimer.visibility = android.view.View.VISIBLE
+            btStartTimer.bringToFront()
         }
     }
 
-    fun LocalDateTime.toMillis(zone: ZoneId = ZoneId.systemDefault()) = atZone(zone).toInstant().toEpochMilli()
+    private fun LocalDateTime.toMillis(zone: ZoneId = ZoneId.systemDefault()) = atZone(zone).toInstant().toEpochMilli()
+
+    private fun updateDatabaseEntry(project: ProjectDTO){
+        try {
+            val map:HashMap<String, Any> = HashMap()
+            val key = ProjectModel.getProjectAt(index!!)!!.GetSnapshot()!!.key!!
+            map[key] = project.toMap()
+            ProjectModel.updateProject(
+                map
+            )
+        } catch (ex : Exception){
+            Toast.makeText(
+                applicationContext,
+                "Time measurement was not added. ${ex.message}",
+                Toast.LENGTH_SHORT
+            ).show()
+        } finally {
+            reOpenOverview()
+        }
+    }
 
     private fun reOpenOverview(){
         val intent = Intent(this, ProjectOverviewActivity::class.java)
