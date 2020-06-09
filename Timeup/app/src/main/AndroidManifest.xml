@@ -11,34 +11,41 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".OverviewActivity">
+        <activity android:name=".OverviewActivity"
+                  android:theme="@style/AppTheme.ActionBar.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".RegisterActivity" >
+        <activity android:name=".RegisterActivity"
+                  android:theme="@style/AppTheme.ActionBar.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".CreateProjectActivity">
+        <activity android:name=".LoginActivity"
+                  android:theme="@style/AppTheme.ActionBar.Transparent"/>
+        <activity android:name=".CreateProjectActivity"
+                  android:theme="@style/AppTheme.ActionBar.Transparent">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OverviewActivity"/>
         </activity>
 
-        <activity android:name=".ProjectOverviewActivity">
+        <activity android:name=".ProjectOverviewActivity"
+                  android:theme="@style/AppTheme.ActionBar.Transparent">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OverviewActivity"/>
         </activity>
 
-        <activity android:name=".StopWatchActivity"/>
+        <activity android:name=".StopWatchActivity"
+                  android:theme="@style/AppTheme.ActionBar.Transparent"/>
 
-        <activity android:name=".AboutActivity">
+        <activity android:name=".AboutActivity"
+                  android:theme="@style/AppTheme.ActionBar.Transparent">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OverviewActivity"/>
         </activity>
