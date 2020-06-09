@@ -83,19 +83,4 @@ class OverviewActivity : AppCompatActivity(), Observer {
             listAdapter?.notifyDataSetChanged()
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        ProjectModel.addObserver(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        ProjectModel.deleteObserver(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        ProjectModel.deleteObserver(this)
-    }
 }

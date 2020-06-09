@@ -67,8 +67,17 @@ object ProjectModel : Observable() {
     }
 
     fun saveProject(projectDTO: ProjectDTO, onCompleteListener: OnCompleteListener<Void>?){
-        val reference = getDatabaseRef()?.push()
-        reference?.updateChildren(projectDTO.toMap())?.addOnCompleteListener{task ->
+        getDatabaseRef()?.push()?.updateChildren(projectDTO.toMap())?.addOnCompleteListener{task ->
+            if(task.isComplete){
+                onCompleteListener?.onComplete(task)
+                setChanged()
+                notifyObservers()
+            }
+        }
+    }
+
+    fun deleteProject(projectDTO: ProjectDTO, onCompleteListener: OnCompleteListener<Void>?){
+       getDatabaseRef()?.child(projectDTO.snapshot?.key ?: return)?.removeValue()?.addOnCompleteListener{task ->
             if(task.isComplete){
                 onCompleteListener?.onComplete(task)
                 setChanged()
