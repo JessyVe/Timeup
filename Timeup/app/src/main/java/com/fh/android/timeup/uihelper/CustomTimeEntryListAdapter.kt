@@ -21,13 +21,13 @@ class CustomTimeEntryListAdapter(context : Context,
     : ArrayAdapter<TimeMeasurementDTO>(context, resource, timeMeasurementList) {
 
     private var mResource : Int = 0
-    private var mList : ArrayList<TimeMeasurementDTO>
+    private var timeMeasurements : ArrayList<TimeMeasurementDTO>
 
     private val mLayoutInflater: LayoutInflater
 
     init{
         this.mResource = resource
-        this.mList = timeMeasurementList
+        this.timeMeasurements = timeMeasurementList
         this.mLayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
@@ -45,6 +45,7 @@ class CustomTimeEntryListAdapter(context : Context,
             return returnView
         }
         setUI(convertView, position)
+
         return convertView
     }
 

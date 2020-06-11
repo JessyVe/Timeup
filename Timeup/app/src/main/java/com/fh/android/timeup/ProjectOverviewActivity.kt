@@ -39,7 +39,7 @@ class ProjectOverviewActivity : AppCompatActivity() {
         tvEstimatedTime.text = currentProject!!.getEstimatedTimeFormat()
         tvTotalTime.text = currentProject!!.getTotalTimeSpendHourFormat()
 
-        listAdapter = CustomTimeEntryListAdapter(this, R.layout.time_measurement_row, currentProject!!.timeMeasurements)
+        listAdapter = CustomTimeEntryListAdapter(this, R.layout.row_template_time_measurement, currentProject!!.timeMeasurements)
         lvTimeEntries.adapter = listAdapter
 
         btStartWorking.setOnClickListener {

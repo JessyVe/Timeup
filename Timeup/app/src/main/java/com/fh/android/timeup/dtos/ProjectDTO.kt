@@ -81,7 +81,7 @@ class ProjectDTO (snapshot: DataSnapshot?)
      */
     fun getTotalTimeSpendHourFormat() : String{
         val dec = DecimalFormat("##.#")
-        var hourValue = getTotalTimeSpend()/3600.0
+        val hourValue = getTotalTimeSpend()/3600.0
 
         return dec.format(hourValue) + " h"
     }
@@ -89,7 +89,7 @@ class ProjectDTO (snapshot: DataSnapshot?)
     /**
      * Returns the absolute time spend on the project.
      */
-    private fun getTotalTimeSpend() : Long {
+    fun getTotalTimeSpend() : Long {
         return timeMeasurements.map { measurement -> measurement.getWorkingDuration() }.sum()
     }
 
@@ -109,7 +109,7 @@ class ProjectDTO (snapshot: DataSnapshot?)
      */
     fun getLastUpdateString() : String {
         val lastUpdateTimeStamp: LocalDateTime? = getLastUpdateTimestamp() ?:
-                return UpdateStrings.UNKNOWN.description
+                return UpdateStrings.NEVER.description
         val duration = Duration.between(lastUpdateTimeStamp, LocalDateTime.now()).abs().toMinutes()
 
         when {

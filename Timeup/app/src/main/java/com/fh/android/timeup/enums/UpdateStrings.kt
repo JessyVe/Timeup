@@ -5,5 +5,5 @@ enum class UpdateStrings (val description : String){
     TODAY("Today"),
     THIS_WEEK("Within 7 days"),
     THIS_MONTH("Within 30 days"),
-    UNKNOWN("Unknown")
+    NEVER("Never")
 }

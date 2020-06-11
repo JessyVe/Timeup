@@ -8,7 +8,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.fh.android.timeup.dtos.ProjectDTO
 import com.fh.android.timeup.models.ProjectModel
-import com.fh.android.timeup.uihelper.CustomListItemAdapter
+import com.fh.android.timeup.uihelper.CustomProjectListItemAdapter
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -17,7 +17,7 @@ import kotlin.collections.ArrayList
 class OverviewActivity : AppCompatActivity(), Observer {
 
     private var btAddProject: Button? = null
-    private var listAdapter: CustomListItemAdapter? = null
+    private var listAdapter: CustomProjectListItemAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class OverviewActivity : AppCompatActivity(), Observer {
 
     private fun initializeUI(){
         val data: ArrayList<ProjectDTO> = ProjectModel.getData() ?: ArrayList()
-        listAdapter = CustomListItemAdapter(this, R.layout.row_template_project, data)
+        listAdapter = CustomProjectListItemAdapter(this, R.layout.row_template_project, data)
         lvProjects.adapter = listAdapter
 
         lvProjects.setOnItemClickListener { _, _, position, _ ->

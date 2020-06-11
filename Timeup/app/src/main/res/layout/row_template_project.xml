@@ -53,7 +53,7 @@
         android:layout_height="84dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/progresscircle"
+        android:background="@drawable/green_progress_circle"
         android:columnCount="2"
         android:gravity="center_vertical"
         android:text="110.5 h"

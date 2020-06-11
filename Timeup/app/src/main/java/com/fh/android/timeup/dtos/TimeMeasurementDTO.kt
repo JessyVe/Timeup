@@ -14,8 +14,9 @@ data class TimeMeasurementDTO(val beginDate : Long,
      * Returns the absolute duration spend on the project as a formatted string in hours.
      */
     fun getWorkingDurationHourFormat(): String {
-        val hourValue = getWorkingDuration() / 3600
-        val minuteValue = getWorkingDuration() % 60
+        val spentSeconds = getWorkingDuration()
+        val hourValue = spentSeconds / 3600
+        val minuteValue = (spentSeconds % 3600) / 60
 
         if(hourValue <= 0)
             return String.format("%d min", minuteValue)

@@ -3,6 +3,7 @@ package com.fh.android.timeup.models
 import android.util.Log
 import com.fh.android.timeup.dtos.ProjectDTO
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.lang.Exception
 import java.util.*
@@ -13,7 +14,9 @@ object ProjectModel : Observable() {
     private var mProjectList : ArrayList<ProjectDTO> = ArrayList()
 
     private fun getDatabaseRef():DatabaseReference?{
-        return FirebaseDatabase.getInstance().reference.child("projects")
+        val uid = FirebaseAuth.getInstance().uid ?: ""
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
+        return ref.child("projects")
     }
 
     init {
@@ -50,7 +53,7 @@ object ProjectModel : Observable() {
         getDatabaseRef()?.addValueEventListener(mValueDataListener as ValueEventListener)
     }
 
-    fun getData(): ArrayList<ProjectDTO>?{
+    fun getData(): ArrayList<ProjectDTO>? {
         return mProjectList
     }
 
