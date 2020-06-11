@@ -30,7 +30,7 @@ class OverviewActivity : AppCompatActivity(), Observer {
 
     private fun initializeUI(){
         val data: ArrayList<ProjectDTO> = ProjectModel.getData() ?: ArrayList()
-        listAdapter = CustomListItemAdapter(this, R.layout.project_row, data)
+        listAdapter = CustomListItemAdapter(this, R.layout.row_template_project, data)
         lvProjects.adapter = listAdapter
 
         lvProjects.setOnItemClickListener { _, _, position, _ ->

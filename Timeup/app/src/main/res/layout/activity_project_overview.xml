@@ -78,6 +78,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="35dp"
+        android:dividerHeight="9sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btStartWorking"
         app:layout_constraintStart_toStartOf="@+id/btDeleteProject"
