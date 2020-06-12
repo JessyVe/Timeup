@@ -7,10 +7,14 @@ import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.fh.android.timeup.dtos.ProjectDTO
+import com.fh.android.timeup.dtos.TimeMeasurementDTO
 import com.fh.android.timeup.models.ProjectModel
 import com.fh.android.timeup.uihelper.CustomProjectListItemAdapter
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.*
 import kotlin.collections.ArrayList
 
