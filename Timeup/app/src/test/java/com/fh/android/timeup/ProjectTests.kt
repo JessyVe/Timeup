@@ -1,7 +1,5 @@
 package com.fh.android.timeup
 
-import com.fh.android.timeup.beans.Project
-import com.fh.android.timeup.beans.TimeMeasurement
 import com.fh.android.timeup.enums.UpdateStrings
 import org.junit.Assert.*
 import org.junit.Before
@@ -79,6 +77,6 @@ class ProjectTests {
         var lastUpdateString = project?.getLastUpdateString()
 
         // assert
-        assertEquals(lastUpdateString, UpdateStrings.JUST_NOW.description);
+        assertEquals(lastUpdateString, UpdateStrings.TODAY.description);
     }
 }
